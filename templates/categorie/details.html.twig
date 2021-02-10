@@ -1,0 +1,11 @@
+{%  extends 'base.html.twig' %}
+
+{% block body %}
+    <h4>Categorie n°{{ categorie.id }}</h4>
+    <p>Nom de la categorie : {{ categorie.nom }}</p>
+
+    <a class="btn btn-block btn-dark" href="{{ path('update_categorie', {id:categorie.id}) }}">Modifier la catégorie</a>
+    {{ form_start(form) }}
+    <button type="submit">SUBMIT</button>
+    {{ form_end(form) }}
+{% endblock %}
