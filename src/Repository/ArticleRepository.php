@@ -39,6 +39,20 @@ class ArticleRepository extends ServiceEntityRepository
         return $resultat;
     }
 
+    public function getArticlesAvecAuteur(){
+        $qb = $this->createQueryBuilder('a');
+        $qb->leftJoin('a.auteur', 'aut');
+        return $qb->getQuery()->getResult();
+    }
+
+    public function getArticleDunAuteurPrecis(string $auteur){
+        $qb = $this->createQueryBuilder('a');
+        $qb->leftJoin('a.auteur', 'aut');
+        $qb->andWhere('aut.nom = :nom');
+        $qb->setParameter('nom', $auteur);
+        return $qb->getQuery()->getResult();
+    }
+
     // /**
     //  * @return Article[] Returns an array of Article objects
     //  */

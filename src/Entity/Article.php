@@ -46,7 +46,7 @@ class Article
     private $dateDePublication;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Auteur::class, inversedBy="articles", fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity=Auteur::class, inversedBy="articles")
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $auteur;

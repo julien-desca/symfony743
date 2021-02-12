@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>{{ article.titre }}</h1>
+    <h2>{{ article.sousTitre }}</h2>
+    <p>{{ article.contenu }}</p>
+    {% if article.auteur is not null %}
+        <p>By {{ article.auteur.prenom }} {{ article.auteur.nom }}</p>
+    {% endif %}
+    <p>publié le : {{ article.dateDePublication|date('d/m/Y') }} à {{ article.dateDePublication|date('H:i') }}</p>
+    <br>
+    <h5>Categories</h5>
+    <ul>
+        {% for cat in article.categories %}
+            <li>{{ cat.nom }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

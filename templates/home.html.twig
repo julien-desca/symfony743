@@ -5,7 +5,7 @@
   {% for article in articleList %}
     <div class="card">
       <div class="card-header">
-        <h4>{{ article.titre }}</h4>
+        <h4><a href="{{ path('article_details', {id:article.id}) }}">{{ article.titre }}</a></h4>
         <h5>{{ article.sousTitre }}</h5>
         <div class="card-body">
           <p>{{ article.contenu|u.truncate(150, '...') }}</p>

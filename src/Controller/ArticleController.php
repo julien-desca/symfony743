@@ -32,6 +32,14 @@ class ArticleController extends AbstractController
     }
 
     /**
+     * @Route("/article/{id}", name="article_details", requirements={"id"="\d+"})
+     */
+    public function getDetail(Request $request, int $id){
+        $article = $this->articleRepository->find($id);
+        return $this->render('article/details.html.twig', ['article'=>$article]);
+    }
+
+    /**
      * @Route("/article/create", name="article_create")
      */
     public function create(Request $request){
@@ -50,18 +58,8 @@ class ArticleController extends AbstractController
      * @Route("/article", name="article_list")
      */
     public function articleList(Request $request){
-        $articleList = $this->articleRepository->findAll();
+        $articleList = $this->articleRepository->getArticlesAvecAuteur();
         return $this->render("article/list.html.twig", ['articleList'=>$articleList]);
     }
 
-    /**
-     * @Route("stats")
-     */
-    public function getStat(){
-        $list = [1,2];
-        for($i = 0 ; $i < 100 ; $i++){
-            $list[] = $list[$i] + $list[$i+1];
-        }
-        return new JsonResponse($list);
-    }
 }
