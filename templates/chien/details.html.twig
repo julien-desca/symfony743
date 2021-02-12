@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <p>Nom : {{ chien.nom }}</p>
+    <p>Age: {{ chien.age }}</p>
+
+    {{ form_start(deleteForm) }}
+    <input type="submit" value="Supprimer le chien">
+    {{ form_end(deleteForm) }}
+{% endblock %}

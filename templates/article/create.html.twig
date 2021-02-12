@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ form_start(formulaire) }}
+        {{ form_row(formulaire.titre) }}
+        {{ form_row(formulaire.sousTitre) }}
+        {{ form_row(formulaire.contenu) }}
+        {{ form_row(formulaire.publie) }}
+        {{ form_row(formulaire.dateDePublication) }}
+        {{ form_row(formulaire.auteur) }}
+        <input type="submit" value="Enregister l'article"/>
+    {{ form_end(formulaire) }}
+{% endblock %}

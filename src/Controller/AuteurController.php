@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\DeleteForm;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -73,9 +74,14 @@ class AuteurController extends AbstractController
    * @Route("/auteur/{id}", name="auteur_details", requirements={"id"="\d+"})
    */
   public function getDetails(Request $request, int $id){
-    // 1 . récuperer l'auteur
     $auteur = $this->auteurRepository->find($id);
-    // 2 . rendu du template
+    $deleteForm = $this->createForm(DeleteForm::class);
+    $deleteForm->handleRequest($request);
+    if($deleteForm->isSubmitted() && $deleteForm->isValid()){
+        $this->entityManager->remove($auteur);
+        $this->entityManager->flush();
+        return $this->redirectToRoute("list_auteur");
+    }
     return $this->render('auteur/details.html.twig', ['auteur' => $auteur]);
   }
 
