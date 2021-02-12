@@ -7,6 +7,7 @@ use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -51,5 +52,16 @@ class ArticleController extends AbstractController
     public function articleList(Request $request){
         $articleList = $this->articleRepository->findAll();
         return $this->render("article/list.html.twig", ['articleList'=>$articleList]);
+    }
+
+    /**
+     * @Route("stats")
+     */
+    public function getStat(){
+        $list = [1,2];
+        for($i = 0 ; $i < 100 ; $i++){
+            $list[] = $list[$i] + $list[$i+1];
+        }
+        return new JsonResponse($list);
     }
 }

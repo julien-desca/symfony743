@@ -1,0 +1,7 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% for term in fibonacci %}
+        <input type="hidden" value="{{ term }}" class="terms">
+    {% endfor %}
+{% endblock %}

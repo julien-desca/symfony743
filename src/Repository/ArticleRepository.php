@@ -19,6 +19,27 @@ class ArticleRepository extends ServiceEntityRepository
         parent::__construct($registry, Article::class);
     }
 
+    public function listDesArticlePublies(){
+        /*
+         * Un article publié => article avec le boolean 'publie' à vrai
+         * ET une date de publication qui est dans le passé.
+         */
+
+        //construction de la requete via le QueryBuilder
+        $qb = $this->createQueryBuilder('a');
+        $qb->andWhere('a.publie = TRUE');
+        $qb->orderBy('a.dateDePublication');
+        $qb->setMaxResults(5);
+
+
+        //récuperation de la requete
+        $query = $qb->getQuery();
+
+        //récup du resultat
+        $resultat = $query->getResult();
+        return $resultat;
+    }
+
     // /**
     //  * @return Article[] Returns an array of Article objects
     //  */
