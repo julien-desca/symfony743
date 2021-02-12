@@ -11,7 +11,7 @@
         <tbody>
             {% for article in articleList %}
                 <tr>
-                    <td>{{ article.id }}</td>
+                    <td><a href="{{ path("article_details", {id:article.id}) }}">{{ article.id }}</a></td>
                     <td>{{ article.titre }}</td>
                     <td>{{ article.sousTitre }}</td>
                     {% if article.auteur is not null %}

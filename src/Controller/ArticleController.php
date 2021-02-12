@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\Commentaire;
 use App\Form\ArticleType;
+use App\Form\CommentaireType;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -36,7 +38,16 @@ class ArticleController extends AbstractController
      */
     public function getDetail(Request $request, int $id){
         $article = $this->articleRepository->find($id);
-        return $this->render('article/details.html.twig', ['article'=>$article]);
+        $commentaire = new Commentaire();
+        $commentaire->setArticle($article);
+        $form = $this->createForm(CommentaireType::class, $commentaire);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $this->entityManager->persist($commentaire);
+            $this->entityManager->flush();
+            return $this->redirectToRoute('article_details', ['id'=>$id]);
+        }
+        return $this->render('article/details.html.twig', ['article'=>$article, 'formulaire'=>$form->createView()]);
     }
 
     /**

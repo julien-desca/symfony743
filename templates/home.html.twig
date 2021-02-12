@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% block header_title %} This is my super blog {% endblock %}
+
 {% block body %}
   <h2>Liste des derniers articles</h2>
   {% for article in articleList %}

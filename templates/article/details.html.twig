@@ -15,4 +15,28 @@
             <li>{{ cat.nom }}</li>
         {% endfor %}
     </ul>
+
+    <div class="card mb-5">
+        <div class="card-header">Donnez nous notre avis !</div>
+        <div class="card-body">
+            {{ form_start(formulaire) }}
+            {{ form_row(formulaire.nom) }}
+            {{ form_row(formulaire.commentaire) }}
+            <input type="submit" class="btn-dark btn btn-block" value="Envoyer votre commentaire">
+            {{ form_end(formulaire) }}
+        </div>
+    </div>
+
+    <div class="card">
+            {% for comment in article.commentaires %}
+                <div class="card">
+                    <div class="card-header">
+                         {{ comment.nom }}
+                    </div>
+                    <div class="card-body">
+                        {{ comment.commentaire }}
+                    </div>
+                </div>
+            {% endfor %}
+    </div>
 {% endblock %}
