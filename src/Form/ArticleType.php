@@ -5,6 +5,7 @@ namespace App\Form;
 
 
 use App\Entity\Auteur;
+use App\Entity\Categorie;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -28,6 +29,13 @@ class ArticleType extends AbstractType
             'choice_label' => function($auteur){
                 return $auteur->getNom() . " " . $auteur->getPrenom();
             }
+        ]);
+        $builder->add("categories", EntityType::class, [
+            'label' => 'Catégories',
+            'class' => Categorie::class,
+            'choice_label' => 'nom',
+            'multiple' => true,
+            'expanded' => true,
         ]);
     }
 
