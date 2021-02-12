@@ -82,7 +82,9 @@ class AuteurController extends AbstractController
         $this->entityManager->flush();
         return $this->redirectToRoute("list_auteur");
     }
-    return $this->render('auteur/details.html.twig', ['auteur' => $auteur, 'deleteForm'=>$deleteForm->createView()]);
+    return $this->render('auteur/details.html.twig', ['auteur' => $auteur,
+        'deleteForm'=>$deleteForm->createView()
+    ]);
   }
 
 
