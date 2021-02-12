@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Form\ArticleType;
+use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,9 +19,15 @@ class ArticleController extends AbstractController
      */
     private $entityManager;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    /**
+     * @var ArticleRepository
+     */
+    private $articleRepository;
+
+    public function __construct(EntityManagerInterface $entityManager, ArticleRepository $articleRepository)
     {
         $this->entityManager = $entityManager;
+        $this->articleRepository = $articleRepository;
     }
 
     /**
@@ -36,5 +43,13 @@ class ArticleController extends AbstractController
             return new Response("Article enregistré");
         }
         return $this->render('article/create.html.twig', ['formulaire'=>$form->createView()]);
+    }
+
+    /**
+     * @Route("/article", name="article_list")
+     */
+    public function articleList(Request $request){
+        $articleList = $this->articleRepository->findAll();
+        return $this->render("article/list.html.twig", ['articleList'=>$articleList]);
     }
 }
