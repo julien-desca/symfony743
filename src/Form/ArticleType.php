@@ -19,9 +19,9 @@ class ArticleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('titre', TextType::class, ['label'=>'Titre de l\'article']);
-        $builder->add('sousTitre', TextType::class, ['label'=>'Sous-titre de l\'article']);
+        $builder->add('sousTitre', TextType::class, ['label'=>'Sous-titre de l\'article', 'required'=>false]);
         $builder->add('contenu', TextareaType::class, ['label' => 'Contenu de l\'article']);
-        $builder->add('publie', CheckboxType::class, ['label'=>'Publier l\'article ?']);
+        $builder->add('publie', CheckboxType::class, ['label'=>'Publier l\'article ?', 'required'=>false]);
         $builder->add('dateDePublication', DateTimeType::class, ['label'=>'Date de publication']);
         $builder->add('auteur', EntityType::class, [
             'label'=>'auteur de l\'article',

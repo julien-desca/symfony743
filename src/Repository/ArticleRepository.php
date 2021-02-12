@@ -24,13 +24,12 @@ class ArticleRepository extends ServiceEntityRepository
          * Un article publié => article avec le boolean 'publie' à vrai
          * ET une date de publication qui est dans le passé.
          */
-
         //construction de la requete via le QueryBuilder
         $qb = $this->createQueryBuilder('a');
         $qb->andWhere('a.publie = TRUE');
-        $qb->orderBy('a.dateDePublication');
+        $qb->andWhere('a.dateDePublication < CURRENT_TIMESTAMP()');
+        $qb->orderBy('a.dateDePublication', 'DESC');
         $qb->setMaxResults(5);
-
 
         //récuperation de la requete
         $query = $qb->getQuery();
