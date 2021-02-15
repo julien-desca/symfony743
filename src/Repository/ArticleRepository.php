@@ -14,6 +14,11 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ArticleRepository extends ServiceEntityRepository
 {
+    /**
+     * @var AuteurRepository
+     */
+    private $auteurRepos;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Article::class);
@@ -37,12 +42,6 @@ class ArticleRepository extends ServiceEntityRepository
         //récup du resultat
         $resultat = $query->getResult();
         return $resultat;
-    }
-
-    public function getArticlesAvecAuteur(){
-        $qb = $this->createQueryBuilder('a');
-        $qb->leftJoin('a.auteur', 'aut');
-        return $qb->getQuery()->getResult();
     }
 
     public function getArticleDunAuteurPrecis(string $auteur){

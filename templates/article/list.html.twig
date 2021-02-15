@@ -14,11 +14,7 @@
                     <td><a href="{{ path("article_details", {id:article.id}) }}">{{ article.id }}</a></td>
                     <td>{{ article.titre }}</td>
                     <td>{{ article.sousTitre }}</td>
-                    {% if article.auteur is not null %}
-                        <td>{{ article.auteur.prenom }} {{ article.auteur.nom }}</td>
-                    {% else %}
-                        <td>Auteur inconnu</td>
-                    {% endif %}
+                    <td>{{ article.user.prenom }} {{ article.user.nom }}</td>
                 </tr>
             {% endfor %}
         </tbody>

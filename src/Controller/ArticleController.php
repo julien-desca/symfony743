@@ -7,6 +7,7 @@ use App\Entity\Commentaire;
 use App\Form\ArticleType;
 use App\Form\CommentaireType;
 use App\Repository\ArticleRepository;
+use App\Service\FakeArticleService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -29,11 +30,15 @@ class ArticleController extends AbstractController
      */
     private $articleRepository;
 
-    public function __construct(EntityManagerInterface $entityManager, ArticleRepository $articleRepository)
+    private $fakeArticleService;
+
+    public function __construct(EntityManagerInterface $entityManager, ArticleRepository $articleRepository, FakeArticleService $fakeArticleService)
     {
         $this->entityManager = $entityManager;
         $this->articleRepository = $articleRepository;
+        $this->fakeArticleService = $fakeArticleService;
     }
+
 
     /**
      * @Route("/article/{id}", name="article_details", requirements={"id"="\d+"})
@@ -57,7 +62,6 @@ class ArticleController extends AbstractController
 
     /**
      * @Route("/article/create", name="article_create")
-     *
      * @IsGranted("ROLE_AUTEUR")
      */
     public function create(Request $request){
@@ -75,10 +79,28 @@ class ArticleController extends AbstractController
     }
 
     /**
+     * @Route("/article/fake", name="article_fake")
+     */
+    public function createFakeArticle(Request $request){
+        $article = $this->fakeArticleService->getFakeArticle(); /*Appel de notre service */;
+        $user = $this->getUser();
+        $article->setUser($user);
+
+        $form = $this->createForm(ArticleType::class, $article);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $this->entityManager->persist($article);
+            $this->entityManager->flush();
+            return $this->redirectToRoute('article_details', ['id'=>$article->getId()]);
+        }
+        return $this->render('article/create.html.twig', ['formulaire'=>$form->createView()]);
+    }
+
+    /**
      * @Route("/article", name="article_list")
      */
     public function articleList(Request $request){
-        $articleList = $this->articleRepository->getArticlesAvecAuteur();
+        $articleList = $this->articleRepository->findAll();
         return $this->render("article/list.html.twig", ['articleList'=>$articleList]);
     }
 

@@ -15,10 +15,6 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="{{ path('list_auteur')}}">Auteur</a>
-        </li>
-
-        <li class="nav-item">
           <a class="nav-link" href="{{ path('list_categorie')}}">Categorie</a>
         </li>
 
@@ -30,11 +26,10 @@
           <li class="nav-item">
             <a class="nav-link" href="{{ path('app_logout')}}">Déconnexion</a>
           </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Mon compte</a>
-        </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Mon compte</a>
+          </li>
         {% else %}
-
           <li class="nav-item">
             <a class="nav-link" href="{{ path('register_user')}}">S'inscrire</a>
           </li>

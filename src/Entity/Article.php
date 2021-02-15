@@ -46,12 +46,6 @@ class Article
     private $dateDePublication;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Auteur::class, inversedBy="articles")
-     * @ORM\JoinColumn(onDelete="SET NULL")
-     */
-    private $auteur;
-
-    /**
      * @ORM\ManyToMany(targetEntity=Categorie::class, inversedBy="articles")
      */
     private $categories;
@@ -147,18 +141,6 @@ class Article
     public function setCategorie(?Categorie $categorie): self
     {
         $this->categorie = $categorie;
-
-        return $this;
-    }
-
-    public function getAuteur(): ?Auteur
-    {
-        return $this->auteur;
-    }
-
-    public function setAuteur(?Auteur $auteur): self
-    {
-        $this->auteur = $auteur;
 
         return $this;
     }
