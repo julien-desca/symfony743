@@ -23,13 +23,6 @@ class ArticleType extends AbstractType
         $builder->add('contenu', TextareaType::class, ['label' => 'Contenu de l\'article']);
         $builder->add('publie', CheckboxType::class, ['label'=>'Publier l\'article ?', 'required'=>false]);
         $builder->add('dateDePublication', DateTimeType::class, ['label'=>'Date de publication']);
-        $builder->add('auteur', EntityType::class, [
-            'label'=>'auteur de l\'article',
-            'class' => Auteur::class,
-            'choice_label' => function($auteur){
-                return $auteur->getNom() . " " . $auteur->getPrenom();
-            }
-        ]);
         $builder->add("categories", EntityType::class, [
             'label' => 'Catégories',
             'class' => Categorie::class,

@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
 
 class ArticleController extends AbstractController
 {
@@ -38,8 +40,10 @@ class ArticleController extends AbstractController
      */
     public function getDetail(Request $request, int $id){
         $article = $this->articleRepository->find($id);
+
         $commentaire = new Commentaire();
         $commentaire->setArticle($article);
+
         $form = $this->createForm(CommentaireType::class, $commentaire);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
@@ -47,14 +51,19 @@ class ArticleController extends AbstractController
             $this->entityManager->flush();
             return $this->redirectToRoute('article_details', ['id'=>$id]);
         }
+
         return $this->render('article/details.html.twig', ['article'=>$article, 'formulaire'=>$form->createView()]);
     }
 
     /**
      * @Route("/article/create", name="article_create")
+     *
+     * @IsGranted("ROLE_AUTEUR")
      */
     public function create(Request $request){
+        $user = $this->getUser();
         $article = new Article();
+        $article->setUser($user);
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){

@@ -24,5 +24,8 @@
         </tbody>
     </table>
 
-    <a class="btn btn-block btn-dark" href="{{ path('article_create') }}">Créer un nouvel article</a>
+    {% if is_granted('ROLE_AUTEUR') %}
+        <a class="btn btn-block btn-dark" href="{{ path('article_create') }}">Créer un nouvel article</a>
+    {% endif %}
+
 {% endblock %}

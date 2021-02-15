@@ -4,9 +4,8 @@
     <h1>{{ article.titre }}</h1>
     <h2>{{ article.sousTitre }}</h2>
     <p>{{ article.contenu }}</p>
-    {% if article.auteur is not null %}
-        <p>By {{ article.auteur.prenom }} {{ article.auteur.nom }}</p>
-    {% endif %}
+    <p>By {{ article.user.prenom }} {{ article.user.nom }}</p>
+
     <p>publié le : {{ article.dateDePublication|date('d/m/Y') }} à {{ article.dateDePublication|date('H:i') }}</p>
     <br>
     <h5>Categories</h5>
